@@ -42,9 +42,23 @@
         <section class="carousel">
             <div class="carousel-container">
                 <div class="carousel-track">
-                    <div class="carousel-slide"></div>
-                    <div class="carousel-slide"></div>
-                    <div class="carousel-slide"></div>
+                    <!-- <div
+                        class="carousel-slide"
+                        style="
+                            height: 100%;
+                            width: 100%;
+                            background-color: aqua;
+                        "
+                    ></div> -->
+                    <div class="carousel-slide current-slide">
+                        <img src="./public/img/carousel-test1.jpg" alt="" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./public/img/carousel-test2.jpg" alt="" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./public/img/carousel-test3.jpg" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="billboard-container">
@@ -52,6 +66,7 @@
                     <button class="carousel-nav-left">
                         <i class="fa-solid fa-caret-left"></i>
                     </button>
+                    <button class="nav-indicator"></button>
                     <button class="nav-indicator"></button>
                     <button class="nav-indicator"></button>
                     <button class="nav-indicator"></button>
@@ -108,5 +123,19 @@
                 </div>
             </div>
         </section>
+        <footer>
+            <div>
+                <img src="./public/img/Footer-logo.png" alt="" />
+            </div>
+            <div class="gray-line"></div>
+            <div class="footer-links">
+                <a href="#">WORK</a>
+                <a href="#">ABOUT</a>
+                <a href="#">CONTACT</a>
+                <a href="#">INSTAGRAM</a>
+            </div>
+        </footer>
+
+        <script src="./public/js/logic.js"></script>
     </body>
 </html>
