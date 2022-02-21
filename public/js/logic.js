@@ -33,10 +33,16 @@ const updateDot = (currentDot, targetDot) => {
 leftBtn.addEventListener("click", e => {
     const currentSlide = track.querySelector(".current-slide");
     const currentDot = navDots.querySelector(".current-indicator");
-    const nextSlide = currentSlide.previousElementSibling;
-    const nextDot = currentDot.previousElementSibling;
-    moveSlide(track, currentSlide, nextSlide);
-    updateDot(currentDot, nextDot);
+    let prevSlide = currentSlide.previousElementSibling;
+    prevSlide == null
+        ? (prevSlide = slides[slides.length - 1])
+        : (prevSlide = currentSlide.previousElementSibling);
+    let prevDot = currentDot.previousElementSibling;
+    prevDot == null
+        ? (prevDot = dots[dots.length - 1])
+        : currentDot.previousElementSibling;
+    moveSlide(track, currentSlide, prevSlide);
+    updateDot(currentDot, prevDot);
 });
 
 // Right button action
@@ -50,7 +56,6 @@ rightBtn.addEventListener("click", e => {
     let nextDot = currentDot.nextElementSibling;
     nextDot == null ? (nextDot = dots[0]) : currentDot.nextElementSibling;
     moveSlide(track, currentSlide, nextSlide);
-    console.log(nextDot);
     updateDot(currentDot, nextDot);
 });
 
