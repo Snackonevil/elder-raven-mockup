@@ -1,5 +1,13 @@
+// Main Nav
+const nav = document.querySelector("#main-nav");
+
+window.addEventListener("scroll", () => {
+    window.innerHeight <= Math.floor(window.scrollY)
+        ? nav.classList.remove("hidden")
+        : nav.classList.add("hidden");
+});
+
 // Carousel Elements
-const carouselContainer = document.querySelector("carousel-container");
 const track = document.querySelector(".carousel-track");
 const slides = Array.from(track.children);
 
@@ -34,13 +42,9 @@ leftBtn.addEventListener("click", e => {
     const currentSlide = track.querySelector(".current-slide");
     const currentDot = navDots.querySelector(".current-indicator");
     let prevSlide = currentSlide.previousElementSibling;
-    prevSlide == null
-        ? (prevSlide = slides[slides.length - 1])
-        : (prevSlide = currentSlide.previousElementSibling);
+    prevSlide == null ? (prevSlide = slides[slides.length - 1]) : prevSlide;
     let prevDot = currentDot.previousElementSibling;
-    prevDot == null
-        ? (prevDot = dots[dots.length - 1])
-        : currentDot.previousElementSibling;
+    prevDot == null ? (prevDot = dots[dots.length - 1]) : prevDot;
     moveSlide(track, currentSlide, prevSlide);
     updateDot(currentDot, prevDot);
 });
@@ -50,11 +54,9 @@ rightBtn.addEventListener("click", e => {
     const currentSlide = track.querySelector(".current-slide");
     const currentDot = navDots.querySelector(".current-indicator");
     let nextSlide = currentSlide.nextElementSibling;
-    nextSlide == null
-        ? (nextSlide = slides[0])
-        : (nextSlide = currentSlide.nextElementSibling);
+    nextSlide == null ? (nextSlide = slides[0]) : nextSlide;
     let nextDot = currentDot.nextElementSibling;
-    nextDot == null ? (nextDot = dots[0]) : currentDot.nextElementSibling;
+    nextDot == null ? (nextDot = dots[0]) : nextDot;
     moveSlide(track, currentSlide, nextSlide);
     updateDot(currentDot, nextDot);
 });
