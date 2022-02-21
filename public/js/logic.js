@@ -1,5 +1,3 @@
-//Main Navbar
-
 // Carousel Elements
 const carouselContainer = document.querySelector("carousel-container");
 const track = document.querySelector(".carousel-track");
@@ -8,7 +6,8 @@ const slides = Array.from(track.children);
 // Nav Elements
 const leftBtn = document.querySelector(".carousel-nav-left");
 const rightBtn = document.querySelector(".carousel-nav-right");
-const navDots = Array.from(document.querySelectorAll(".nav-indicator"));
+const dots = Array.from(document.querySelectorAll(".nav-indicator"));
+const navDots = document.querySelector(".carousel-nav");
 
 const slideWidth = slides[0].getBoundingClientRect().width;
 
@@ -16,23 +15,53 @@ const setSlidePosition = (slide, index) => {
     slide.style.left = `${slideWidth * index}px`;
 };
 
+// Arrange Slides
+slides.forEach(setSlidePosition);
+
 const moveSlide = (track, currentSlide, targetSlide) => {
     track.style.transform = `translateX(-${targetSlide.style.left})`;
     currentSlide.classList.remove("current-slide");
     targetSlide.classList.add("current-slide");
 };
 
-// Arrange Slides
-slides.forEach(setSlidePosition);
+const updateDot = (currentDot, targetDot) => {
+    currentDot.classList.remove("current-indicator");
+    targetDot.classList.add("current-indicator");
+};
 
-rightBtn.addEventListener("click", e => {
-    const currentSlide = track.querySelector(".current-slide");
-    const nextSlide = currentSlide.nextElementSibling;
-    moveSlide(track, currentSlide, nextSlide);
-});
-
+// Left button action
 leftBtn.addEventListener("click", e => {
     const currentSlide = track.querySelector(".current-slide");
+    const currentDot = navDots.querySelector(".current-indicator");
     const nextSlide = currentSlide.previousElementSibling;
+    const nextDot = currentDot.previousElementSibling;
     moveSlide(track, currentSlide, nextSlide);
+    updateDot(currentDot, nextDot);
 });
+
+// Right button action
+rightBtn.addEventListener("click", e => {
+    const currentSlide = track.querySelector(".current-slide");
+    const currentDot = navDots.querySelector(".current-indicator");
+    let nextSlide = currentSlide.nextElementSibling;
+    nextSlide == null
+        ? (nextSlide = slides[0])
+        : (nextSlide = currentSlide.nextElementSibling);
+    let nextDot = currentDot.nextElementSibling;
+    nextDot == null ? (nextDot = dots[0]) : currentDot.nextElementSibling;
+    moveSlide(track, currentSlide, nextSlide);
+    console.log(nextDot);
+    updateDot(currentDot, nextDot);
+});
+
+dots.forEach(dot =>
+    dot.addEventListener("click", e => {
+        const currentSlide = track.querySelector(".current-slide");
+        const currentDot = navDots.querySelector(".current-indicator");
+        const targetDot = dot;
+        const targetIndex = dots.indexOf(dot);
+        const targetSlide = slides[targetIndex];
+        moveSlide(track, currentSlide, targetSlide);
+        updateDot(currentDot, targetDot);
+    })
+);
