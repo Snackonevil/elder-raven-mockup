@@ -1,10 +1,15 @@
 // Main Nav
 const nav = document.querySelector("#main-nav");
+const video = document.querySelector("#background-vid");
 
 window.addEventListener("scroll", () => {
-    window.innerHeight <= Math.floor(window.scrollY)
-        ? nav.classList.remove("hidden")
-        : nav.classList.add("hidden");
+    if (window.innerHeight <= Math.floor(window.scrollY)) {
+        nav.classList.remove("hidden");
+        video.classList.add("hidden");
+    } else {
+        nav.classList.add("hidden");
+        video.classList.remove("hidden");
+    }
 });
 
 // Carousel Elements
@@ -73,17 +78,27 @@ dots.forEach(dot =>
     })
 );
 
-const projects = document.querySelectorAll(".project");
+const projects = Array.from(document.querySelectorAll(".project"));
 const projectSection = document.querySelector(".section-3");
+
+const setProjectState = project => {
+    const overlay = project.children[1];
+    project.classList.add("active-project");
+    project.classList.remove("inactive-project");
+    overlay.style.height = "25%";
+    overlay.style.opacity = "1";
+};
+
+const resetProjectState = () => {
+    projects.forEach(project => {
+        project.classList.remove("active-project");
+        project.classList.add("inactive-project");
+    });
+};
 
 projects.forEach(project => {
     project.addEventListener("click", e => {
-        const projectWindow = e.currentTarget;
-        const overlay = projectWindow.children[1];
-        projectWindow.style.flex = "100% 1 1";
-        projectWindow.style.height = "100vh";
-        console.log(e.currentTarget.children[1]);
-        overlay.style.height = "25%";
-        overlay.style.opacity = "1";
+        resetProjectState();
+        setProjectState(project);
     });
 });
