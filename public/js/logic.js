@@ -72,3 +72,18 @@ dots.forEach(dot =>
         updateDot(currentDot, targetDot);
     })
 );
+
+const projects = document.querySelectorAll(".project");
+const projectSection = document.querySelector(".section-3");
+
+projects.forEach(project => {
+    project.addEventListener("click", e => {
+        const projectWindow = e.currentTarget;
+        const overlay = projectWindow.children[1];
+        projectWindow.style.flex = "100% 1 1";
+        projectWindow.style.height = "100vh";
+        console.log(e.currentTarget.children[1]);
+        overlay.style.height = "25%";
+        overlay.style.opacity = "1";
+    });
+});
