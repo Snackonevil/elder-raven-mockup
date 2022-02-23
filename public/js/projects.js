@@ -53,19 +53,44 @@ projects.forEach(project => {
 const leftBtns = Array.from(document.querySelectorAll(".project-left"));
 const rightBtns = Array.from(document.querySelectorAll(".project-right"));
 
-const projectCarousels = Array.from(
-    document.querySelectorAll(".project-carousel")
+const carouselTracks = Array.from(
+    document.querySelectorAll(".project-carousel-track")
 );
 
-const projectSlides = Array.from(projectCarousels[0].children);
-
-console.log(projectSlides);
+carouselTracks.forEach(track => {
+    const slides = Array.from(track.children);
+    slides.forEach((slide, index) => {
+        slide.style.left = `${window.innerWidth * index}px`;
+    });
+});
 
 leftBtns.forEach(leftBtn => {
-    leftBtn.addEventListener("click", () =>
-        console.log(leftBtn.parentElement.parentElement)
-    );
+    leftBtn.addEventListener("click", () => {
+        const track = leftBtn.parentElement.parentElement.children[0];
+        const currentSlide = track.querySelector(".current-slide");
+        const slides = Array.from(track.children);
+
+        let prevSlide;
+        if (currentSlide.previousElementSibling == null) {
+            prevSlide = slides[slides.length - 1];
+        } else {
+            prevSlide = currentSlide.previousElementSibling;
+        }
+
+        moveSlide(track, currentSlide, prevSlide);
+    });
 });
 rightBtns.forEach(rightBtn => {
-    rightBtn.addEventListener("click", () => console.log("click right"));
+    rightBtn.addEventListener("click", () => {
+        const track = rightBtn.parentElement.parentElement.children[0];
+        const currentSlide = track.querySelector(".current-slide");
+        const slides = Array.from(track.children);
+        let nextSlide;
+        if (currentSlide.nextElementSibling == null) {
+            nextSlide = slides[0];
+        } else {
+            nextSlide = currentSlide.nextElementSibling;
+        }
+        moveSlide(track, currentSlide, nextSlide);
+    });
 });
