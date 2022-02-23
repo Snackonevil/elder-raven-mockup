@@ -47,6 +47,7 @@ projects.forEach(project => {
     project.addEventListener("click", e => {
         resetAllProjectStates();
         openProjectState(project);
+        location.href = `#${project.id}`;
     });
 });
 
