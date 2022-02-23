@@ -31,17 +31,20 @@ const setSlidePosition = (slide, index) => {
 // Arrange Slides
 slides.forEach(setSlidePosition);
 
+// Move Main Carousel Slide
 const moveSlide = (track, currentSlide, targetSlide) => {
     track.style.transform = `translateX(-${targetSlide.style.left})`;
     currentSlide.classList.remove("current-slide");
     targetSlide.classList.add("current-slide");
 };
 
+// Update Dot with Main Carousel
 const updateDot = (currentDot, targetDot) => {
     currentDot.classList.remove("current-indicator");
     targetDot.classList.add("current-indicator");
 };
 
+// Event Listener for Left Button
 // Left button action
 leftBtn.addEventListener("click", e => {
     const currentSlide = track.querySelector(".current-slide");
@@ -54,6 +57,7 @@ leftBtn.addEventListener("click", e => {
     updateDot(currentDot, prevDot);
 });
 
+// Event Listener for Right Button
 // Right button action
 rightBtn.addEventListener("click", e => {
     const currentSlide = track.querySelector(".current-slide");
@@ -66,6 +70,7 @@ rightBtn.addEventListener("click", e => {
     updateDot(currentDot, nextDot);
 });
 
+// Event Listener for Dots
 dots.forEach(dot =>
     dot.addEventListener("click", e => {
         const currentSlide = track.querySelector(".current-slide");
@@ -81,7 +86,7 @@ dots.forEach(dot =>
 const projects = Array.from(document.querySelectorAll(".project"));
 const projectSection = document.querySelector(".section-3");
 
-const setProjectState = project => {
+const openProjectState = project => {
     const overlay = project.children[1];
     project.classList.add("active-project");
     project.classList.remove("inactive-project");
@@ -89,16 +94,24 @@ const setProjectState = project => {
     overlay.style.opacity = "1";
 };
 
-const resetProjectState = () => {
+const closeProjectState = () => {
     projects.forEach(project => {
+        const overlay = project.children[1];
         project.classList.remove("active-project");
         project.classList.add("inactive-project");
+        overlay.style.height = "";
+        overlay.style.opacity = "";
     });
 };
 
 projects.forEach(project => {
     project.addEventListener("click", e => {
-        resetProjectState();
-        setProjectState(project);
+        closeProjectState();
+        openProjectState(project);
+        const btnContainer =
+            e.currentTarget.children[0].children[
+                e.currentTarget.children[0].children.length - 1
+            ];
+        console.log(btnContainer);
     });
 });
