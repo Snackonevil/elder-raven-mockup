@@ -81,6 +81,7 @@ leftBtns.forEach(leftBtn => {
         moveSlide(track, currentSlide, prevSlide);
     });
 });
+
 rightBtns.forEach(rightBtn => {
     rightBtn.addEventListener("click", () => {
         const track = rightBtn.parentElement.parentElement.children[0];
